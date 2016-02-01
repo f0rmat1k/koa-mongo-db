@@ -10,21 +10,23 @@ module.exports = function (uri, opts) {
 	opts = opts || {};
 	var property = opts.property || 'db';
 
-	var connection;
+	var db;
 
-	return function expressMongoDb(req, res, next) {
-		if (!connection) {
-			connection = MongoClient.connect(uri, opts);
+	return function *koaMongoDb(next) {
+		if (!db) {
+			try {
+				db = yield MongoClient.connect(uri, opts);
+
+				this[property] = db;
+			} catch (err) {
+				db = undefined;
+
+				this.throw('Mongo connection error', 500);
+
+				return;
+			}
+
+			yield next;
 		}
-
-		connection
-			.then(function (db) {
-				req[property] = db;
-				next();
-			})
-			.catch(function (err) {
-				connection = undefined;
-				next(err);
-			});
 	};
 };

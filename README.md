@@ -1,32 +1,31 @@
-# express-mongo-db [![Build Status](https://travis-ci.org/floatdrop/express-mongo-db.svg?branch=master)](https://travis-ci.org/floatdrop/express-mongo-db)
+# koa-mongo-db
 
-> Get db connection in request
+> Get db connection in context
 
 
 ## Install
 
 ```
-$ npm install --save express-mongo-db
+$ npm install --save koa-mongo-db
 ```
 
 
 ## Usage
 
 ```js
-var app = require('express')();
+var app = require('koa')();
 
-var expressMongoDb = require('express-mongo-db');
-app.use(expressMongoDb('mongodb://localhost/test'));
+var koaMongoDb = require('koa-mongo-db');
+app.use(koaMongoDb('mongodb://localhost/test'));
 
-app.get('/', function (req, res, next) {
-	req.db // => Db object
+app.get('/', function * (next) {
+	this.db // => Db object
 });
 ```
 
-
 ## API
 
-### expressMongoDb(uri, [options])
+### koaMongoDb(uri, [options])
 
 #### uri
 
@@ -49,4 +48,6 @@ Property on `request` object in which db connection will be stored.
 
 ## License
 
-MIT © [Vsevolod Strukchinsky](http://github.com/floatdrop)
+MIT
+
+Thanks to [floatdrop](https://github.com/floatdrop) for the original [express-mongo-db](https://github.com/floatdrop/express-mongo-db).
