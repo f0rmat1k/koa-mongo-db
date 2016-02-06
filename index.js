@@ -25,8 +25,8 @@ module.exports = function (uri, opts) {
 
 				return;
 			}
-
-			yield next;
 		}
+
+		yield next;
 	};
 };
