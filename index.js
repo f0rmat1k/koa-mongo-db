@@ -16,8 +16,6 @@ module.exports = function (uri, opts) {
 		if (!db) {
 			try {
 				db = yield MongoClient.connect(uri, opts);
-
-				this[property] = db;
 			} catch (err) {
 				db = undefined;
 
@@ -27,6 +25,7 @@ module.exports = function (uri, opts) {
 			}
 		}
 
+		this[property] = db;
 		yield next;
 	};
 };
