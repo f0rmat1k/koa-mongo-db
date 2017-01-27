@@ -1,6 +1,6 @@
 'use strict';
 
-var MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 
 module.exports = function (uri, opts) {
 	if (typeof uri !== 'string') {
@@ -8,24 +8,24 @@ module.exports = function (uri, opts) {
 	}
 
 	opts = opts || {};
-	var property = opts.property || 'db';
+	const property = opts.property || 'db';
 
-	var db;
+	let db;
 
-	return function *koaMongoDb(next) {
+	return async function koaMongoDb(ctx, next) {
 		if (!db) {
 			try {
-				db = yield MongoClient.connect(uri, opts);
+				db = await MongoClient.connect(uri, opts);
 			} catch (err) {
 				db = undefined;
 
-				this.throw('Mongo connection error', 500);
+				ctx.throw('Mongo connection error', 500);
 
 				return;
 			}
 		}
 
-		this[property] = db;
-		yield next;
+		ctx[property] = db;
+		next();
 	};
 };

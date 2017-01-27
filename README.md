@@ -12,6 +12,8 @@ $ npm install --save koa-mongo-db
 
 ## Usage
 
+_use version 1 for koa 1_
+
 ```js
 var app = require('koa')();
 
