@@ -26,6 +26,6 @@ module.exports = function (uri, opts) {
 		}
 
 		ctx[property] = db;
-		next();
+		return next();
 	};
 };
