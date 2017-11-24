@@ -1,6 +1,6 @@
 {
   "name": "koa-mongo-db",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Get db connection in context",
   "license": "MIT",
   "repository": "f0rmat1k/koa-mongo-db",
