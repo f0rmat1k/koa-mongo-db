@@ -19,7 +19,7 @@ module.exports = function (uri, opts) {
 			} catch (err) {
 				db = undefined;
 
-				ctx.throw('Mongo connection error', 500);
+				ctx.throw(500, 'Mongo connection error');
 
 				return;
 			}
