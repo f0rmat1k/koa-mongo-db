@@ -24,7 +24,7 @@
     "koa"
   ],
   "dependencies": {
-    "mongodb": "^2.1.4"
+    "mongodb": "^3.1.8"
   },
   "devDependencies": {
     "eslint": "^1.0.0",
