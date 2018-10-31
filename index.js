@@ -12,23 +12,20 @@ module.exports = function (uri, opts) {
 
 	let db;
 
-	return function koaMongoDb(ctx, next) {
+	return async function koaMongoDb(ctx, next) {
 		if (!db) {
-			MongoClient.connect(uri, opts)
-				.then(database => {
-					db = database;
-					ctx[property] = db;
+			try {
+				db = await MongoClient.connect(uri, opts);
+			} catch (err) {
+				db = undefined;
 
-					return next();
-				})
-				.catch(err => {
-					db = undefined;
+				ctx.throw(500, 'Mongo connection error');
 
-					ctx.throw(500, 'Mongo connection error');
-				});
-		} else {
-			ctx[property] = db;
-			return next();
+				return;
+			}
 		}
+
+		ctx[property] = db;
+		return next();
 	};
 };
