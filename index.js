@@ -2,9 +2,13 @@
 
 const MongoClient = require('mongodb').MongoClient;
 
-module.exports = function (uri, opts) {
+module.exports = (uri, opts = {}) => {
 	if (typeof uri !== 'string') {
 		throw new TypeError('Expected uri to be a string');
+	}
+
+	if (typeof opts.db !== 'string') {
+		throw new TypeError('Expected options.db to be a string');
 	}
 
 	opts = opts || {};
@@ -25,7 +29,7 @@ module.exports = function (uri, opts) {
 			}
 		}
 
-		ctx[property] = db;
+		ctx[property] = db.db(opts.db);
 		return next();
 	};
 };
